@@ -25,8 +25,8 @@ const Orders = () => {
 
   return (
     <>
-      {!!error && <p>Ooops! Something went wrong</p>}
-      {!error & <OrderTable items={orders} />}
+      {error && <p>Ooops! Something went wrong</p>}
+      {!error && <OrderTable items={orders} />}
     </>
   );
 };
