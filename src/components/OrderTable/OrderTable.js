@@ -4,6 +4,7 @@ import {
   GridToolbarContainer,
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
+import styles from "./OrderTable.module.css";
 
 const CustomToolbar = ({ setFilterButtonEl }) => (
   <GridToolbarContainer>
@@ -14,45 +15,63 @@ const CustomToolbar = ({ setFilterButtonEl }) => (
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
-    field: "firstName",
-    headerName: "First name",
+    field: "code",
+    headerName: "Code",
     width: 150,
     editable: true,
   },
   {
-    field: "lastName",
-    headerName: "Last name",
+    field: "name",
+    headerName: "Name",
     width: 150,
     editable: true,
   },
   {
-    field: "age",
-    headerName: "Age",
+    field: "date",
+    headerName: "Date",
     type: "number",
     width: 110,
     editable: true,
   },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },
 ];
 
 const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { id: 1, name: "Snow", code: "Jon", date: 35 },
+  { id: 2, name: "Lannister", code: "Cersei", date: 42 },
+  { id: 3, name: "Lannister", code: "Jaime", date: 45 },
+  { id: 4, name: "Stark", code: "Arya", date: 16 },
+  { id: 5, name: "Targaryen", code: "Daenerys", date: null },
+  { id: 6, name: "Melisandre", code: null, date: 150 },
+  { id: 7, name: "Clifford", code: "Ferrara", date: 44 },
+  { id: 8, name: "Frances", code: "Rossini", date: 36 },
+  { id: 9, name: "Roxie", code: "Harvey", date: 65 },
+  { id: 10, name: "Snow", code: "Jon", date: 35 },
+  { id: 11, name: "Lannister", code: "Cersei", date: 42 },
+  { id: 12, name: "Lannister", code: "Jaime", date: 45 },
+  { id: 13, name: "Stark", code: "Arya", date: 16 },
+  { id: 14, name: "Targaryen", code: "Daenerys", date: null },
+  { id: 15, name: "Melisandre", code: null, date: 150 },
+  { id: 16, name: "Clifford", code: "Ferrara", date: 44 },
+  { id: 17, name: "Frances", code: "Rossini", date: 36 },
+  { id: 18, name: "Roxie", code: "Harvey", date: 65 },
+  { id: 19, name: "Snow", code: "Jon", date: 35 },
+  { id: 20, name: "Lannister", code: "Cersei", date: 42 },
+  { id: 21, name: "Lannister", code: "Jaime", date: 45 },
+  { id: 22, name: "Stark", code: "Arya", date: 16 },
+  { id: 23, name: "Targaryen", code: "Daenerys", date: null },
+  { id: 24, name: "Melisandre", code: null, date: 150 },
+  { id: 25, name: "Clifford", code: "Ferrara", date: 44 },
+  { id: 26, name: "Frances", code: "Rossini", date: 36 },
+  { id: 27, name: "Roxie", code: "Harvey", date: 65 },
+  { id: 28, name: "Snow", code: "Jon", date: 35 },
+  { id: 29, name: "Lannister", code: "Cersei", date: 42 },
+  { id: 30, name: "Lannister", code: "Jaime", date: 45 },
+  { id: 31, name: "Stark", code: "Arya", date: 16 },
+  { id: 32, name: "Targaryen", code: "Daenerys", date: null },
+  { id: 33, name: "Melisandre", code: null, date: 150 },
+  { id: 34, name: "Clifford", code: "Ferrara", date: 44 },
+  { id: 35, name: "Frances", code: "Rossini", date: 36 },
+  { id: 36, name: "Roxie", code: "Harvey", date: 65 },
 ];
 
 const OrderTable = ({ items }) => {
@@ -61,7 +80,10 @@ const OrderTable = ({ items }) => {
   const [filterButtonEl, setFilterButtonEl] = useState(null);
 
   return (
-    <div style={{ height: 400, width: "50%" }}>
+    <div
+      className={styles["table_container"]}
+      style={{ height: 400, width: "50%" }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -76,6 +98,9 @@ const OrderTable = ({ items }) => {
             setFilterButtonEl,
           },
         }}
+        rowsPerPageOptions={[10]}
+        checkboxSelection
+        disableSelectionOnClick
       />
     </div>
   );
