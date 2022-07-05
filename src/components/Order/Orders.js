@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { default as OrderService } from "../../services/Orders";
+import { default as OrderService } from "../../services/OrderService";
 import OrderTable from "./OrderTable";
 import styles from "./Orders.module.css";
 import TransparentBox from "../UI/TransparentBox";

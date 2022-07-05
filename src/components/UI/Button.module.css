@@ -1,0 +1,27 @@
+.button {
+  font: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  margin-right: 1rem;
+  color: #fff;
+  transition: all 0.2s linear;
+  background: linear-gradient(to right, #08c792 50%, #0099da 50%);
+  background-size: 205% 100%;
+  background-position: right bottom;
+  border-color: #0099da;
+}
+
+.button:focus {
+  outline: none;
+}
+
+button:disabled,
+button:focus:disabled,
+button:hover:disabled,
+button:active:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #666666;
+  cursor: not-allowed;
+}

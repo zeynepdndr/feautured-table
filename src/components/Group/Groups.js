@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { default as OrderService } from "../../services/Orders";
+import { default as service } from "../../services/OrderService";
 import TransparentBox from "../UI/TransparentBox";
 // import styles from "./Group.module.css";
 
@@ -8,7 +8,8 @@ const Group = () => {
   const [error, setError] = useState(false);
 
   const getOrders = async () => {
-    OrderService.getAll()
+    service
+      .getAll()
       .then((Group) => {
         setOrders(Group);
       })
