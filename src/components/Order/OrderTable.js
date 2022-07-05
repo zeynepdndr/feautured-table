@@ -95,9 +95,14 @@
 
 // export default OrderTable;
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Toast } from "primereact/toast";
+
+import "primereact/resources/themes/saga-green/theme.css";
+import "primereact/resources/primereact.min.css";
+
 import OrderService from "../../services/OrderService";
 import "./OrderTable.module.css";
 import "primeicons/primeicons.css";
@@ -114,6 +119,7 @@ const OrderTable = () => {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedCustomers, setSelectedCustomers] = useState(null);
   const [selectedRepresentative, setSelectedRepresentative] = useState(null);
+  const toast = useRef(null);
   const [lazyParams, setLazyParams] = useState({
     first: 0,
     rows: 10,
@@ -223,9 +229,18 @@ const OrderTable = () => {
   };
 
   const groupSelectedOrders = () => {
-    if (!selectedCustomers || selectedCustomers.length === 0)
+    if (!selectedCustomers || selectedCustomers.length === 0) {
       setGroupSelectionError(true);
-    else setGroupSelectionError(false);
+    } else {
+      setGroupSelectionError(false);
+      toast.current.show({
+        severity: "success",
+        summary: "Group created successfully!",
+        detail: "You can find it under Group",
+        life: 3000,
+      });
+      setSelectedCustomers(null);
+    }
     console.log(selectedCustomers);
   };
 
@@ -234,11 +249,21 @@ const OrderTable = () => {
     setSelectedCustomers(null);
   };
 
-  return (
-    <>
+  useEffect(() => {
+    setGroupSelectionError(false);
+  }, [selectedCustomers]);
+
+  const header = (
+    <div className="table-header-container">
       <Button onClick={groupSelectedOrders}>Group</Button>
       <Button onClick={clearSelections}>Clear</Button>
       {groupSelectionError && <p>Please select at least 1 item</p>}
+    </div>
+  );
+
+  return (
+    <div>
+      <Toast ref={toast} className="toast_msg" />
       <DataTable
         value={customers}
         lazy
@@ -246,6 +271,7 @@ const OrderTable = () => {
         responsiveLayout="scroll"
         dataKey="id"
         paginator
+        header={header}
         first={lazyParams.first}
         rows={10}
         totalRecords={totalRecords}
@@ -296,7 +322,7 @@ const OrderTable = () => {
           filterPlaceholder="Search by representative"
         />
       </DataTable>
-    </>
+    </div>
   );
 };
 

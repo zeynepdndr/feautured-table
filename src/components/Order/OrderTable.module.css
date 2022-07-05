@@ -155,8 +155,15 @@ img.flag {
   width: 30px;
 }
 
+.table-header-container {
+}
 p {
   margin-right: 1.5rem;
   font-size: 13px;
   color: red;
+}
+
+.toast_msg {
+  top: 8rem;
+  right: 4rem;
 }
