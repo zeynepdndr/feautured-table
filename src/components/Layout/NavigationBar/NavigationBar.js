@@ -7,9 +7,9 @@ const NavigationBar = (props) => {
     <header>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Link to={"https://tr.kuehne-nagel.com/en/"}>
+          <a href={"https://tr.kuehne-nagel.com/en/"}>
             <img src={logo} alt="Kuehne Nagel" />
-          </Link>
+          </a>
         </div>
         <nav>
           <ul>
