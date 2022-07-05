@@ -80,10 +80,7 @@ const OrderTable = ({ items }) => {
   const [filterButtonEl, setFilterButtonEl] = useState(null);
 
   return (
-    <div
-      className={styles["table_container"]}
-      style={{ height: 400, width: "50%" }}
-    >
+    <div className={styles["table_container"]}>
       <DataGrid
         rows={rows}
         columns={columns}

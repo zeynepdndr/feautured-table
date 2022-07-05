@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { default as OrderService } from "../../services/Orders";
 import OrderTable from "./OrderTable";
 import styles from "./Orders.module.css";
+import TransparentBox from "../UI/TransparentBox";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -25,10 +26,10 @@ const Orders = () => {
   useEffect(() => {}, [orders]);
 
   return (
-    <div className={styles.section}>
+    <TransparentBox>
       {error && <p>Ooops! Something went wrong</p>}
       {!error && <OrderTable items={orders} />}
-    </div>
+    </TransparentBox>
   );
 };
 

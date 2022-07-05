@@ -14,10 +14,10 @@ const NavigationBar = (props) => {
         <nav>
           <ul>
             <li>
-              <Link to={"/"}>Order</Link>
+              <Link to={"/order"}>Order</Link>
             </li>
             <li>
-              <Link to={"/"}>Group</Link>
+              <Link to={"/group"}>Group</Link>
             </li>
           </ul>
         </nav>
