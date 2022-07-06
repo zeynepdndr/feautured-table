@@ -33,8 +33,15 @@ const Table = (props) => {
       onSelectionChange={props.onSelectionChange}
       selectAll={props.selectAll}
       onSelectAllChange={props.onSelectAllChange}
+      expandedRows={props.expandedRows}
+      onRowToggle={props.onRowToggle}
+      rowExpansionTemplate={props.rowExpansionTemplate}
     >
-      <Column selectionMode="multiple" headerStyle={{ width: "3em" }}></Column>
+      <Column
+        expander={props.expander}
+        selectionMode={props.selectionMode}
+        headerStyle={{ width: "3em" }}
+      ></Column>
       <Column
         field="name"
         header="ID"

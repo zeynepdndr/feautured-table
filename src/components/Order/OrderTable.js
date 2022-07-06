@@ -102,6 +102,7 @@ import Button from "../UI/Button";
 import Table from "../UI/Table";
 
 import "./OrderTable.module.css";
+import GroupService from "../../services/GroupService";
 
 const OrderTable = () => {
   const [loading, setLoading] = useState(false);
@@ -194,6 +195,7 @@ const OrderTable = () => {
       setGroupSelectionError(true);
     } else {
       setGroupSelectionError(false);
+      GroupService.addGroup(selectedOrders);
       toast.current.show({
         severity: "success",
         summary: "Group created successfully!",
@@ -220,7 +222,6 @@ const OrderTable = () => {
       {groupSelectionError && <p>Please select at least 1 item</p>}
     </div>
   );
-  console.log(orders);
   return (
     <div>
       <Toast ref={toast} className="toast_msg" />
@@ -240,6 +241,7 @@ const OrderTable = () => {
         onFilter={onFilter}
         filters={lazyParams.filters}
         loading={loading}
+        selectionMode="multiple"
       ></Table>
       {/* <DataTable
         value={orders}

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import GroupService from "../../services/GroupService";
+import Table from "../UI/Table";
 import TransparentBox from "../UI/TransparentBox";
 // import styles from "./Group.module.css";
 
@@ -17,11 +18,11 @@ import Button from "../UI/Button";
 
 const Group = () => {
   const [groups, setGroups] = useState([]);
+  const [totalRecords, setTotalRecords] = useState(0);
   const [error, setError] = useState(false);
-  console.log(groups);
 
   const getGroups = async () => {
-    GroupService.getAll()
+    GroupService.getGroups()
       .then((item) => {
         setGroups(item.customers);
       })
@@ -49,59 +50,24 @@ const Group = () => {
 
   useEffect(() => {
     isMounted.current = true;
-    GroupService.getAll().then((data) => setGroups(data.customers));
+    GroupService.getGroups().then((data) => {
+      setGroups(data.customers);
+      setTotalRecords(data.customers.length);
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const expandAll = () => {
-    let _expandedRows = {};
-    groups.forEach((p) => (_expandedRows[`${p.id}`] = true));
-
-    setExpandedRows(_expandedRows);
-  };
-
-  const collapseAll = () => {
-    setExpandedRows(null);
-  };
-
-  const statusOrderBodyTemplate = (rowData) => {
-    return (
-      <span className={`order-badge order-${rowData.status}`}>
-        {rowData.status}
-      </span>
-    );
-  };
-
-  const searchBodyTemplate = () => {
-    return <Button icon="pi pi-search" />;
-  };
-
-  const statusBodyTemplate = (rowData) => {
-    return (
-      <span className={`product-badge status-${rowData.inventoryStatus}`}>
-        {rowData.inventoryStatus}
-      </span>
-    );
-  };
 
   const rowExpansionTemplate = (data) => {
     return (
-      <div className="orders-subtable">
+      <div
+        className="orders-subtable"
+        style={{ width: "600px", margin: "auto" }}
+      >
         <h5>Orders for {data.name}</h5>
         <DataTable value={data.orders} responsiveLayout="scroll">
-          <Column field="id" header="Id" sortable></Column>
-          <Column field="customer" header="Customer" sortable></Column>
-          <Column field="date" header="Date" sortable></Column>
-          <Column field="amount" header="Amount" sortable></Column>
-          <Column
-            field="status"
-            header="Status"
-            body={statusOrderBodyTemplate}
-            sortable
-          ></Column>
-          <Column
-            headerStyle={{ width: "4rem" }}
-            body={searchBodyTemplate}
-          ></Column>
+          <Column field="id" header="ID" sortable></Column>
+          <Column field="customer" header="Code" sortable></Column>
+          <Column field="date" header="Name" sortable></Column>
+          <Column field="amount" header="Date" sortable></Column>
         </DataTable>
       </div>
     );
@@ -109,6 +75,15 @@ const Group = () => {
 
   return (
     <TransparentBox>
+      <Table
+        value={groups}
+        expandedRows={expandedRows}
+        onRowToggle={(e) => setExpandedRows(e.data)}
+        responsiveLayout="scroll"
+        rowExpansionTemplate={rowExpansionTemplate}
+        dataKey="id"
+        expander
+      ></Table>
       <DataTable
         value={groups}
         expandedRows={expandedRows}
@@ -118,16 +93,9 @@ const Group = () => {
         dataKey="id"
       >
         <Column expander style={{ width: "3em" }} />
-        <Column field="name" header="Name" sortable />
-        <Column field="price" header="Price" sortable />
-        <Column field="category" header="Category" sortable />
-        <Column field="rating" header="Reviews" sortable />
-        <Column
-          field="inventoryStatus"
-          header="Status"
-          sortable
-          body={statusBodyTemplate}
-        />
+        <Column field="name" header="Group Number" sortable />
+        <Column field="price" header="Quantity" sortable />
+        <Column field="category" header="Creation Date" sortable />
       </DataTable>
     </TransparentBox>
   );
