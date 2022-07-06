@@ -1,5 +1,5 @@
 import { db } from "../firebase.config";
-import { collection, getDocs, addDoc, increment } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { dataToFirestoreTimestamp } from "../utils/dateConverter";
 
 const groupsCollection = collection(db, "groups");
@@ -29,9 +29,14 @@ class GroupService {
 
   addGroup = async (items) => {
     let creationDate = Date.now();
+    const min = 1;
+    const max = 100;
+    const groupNumber = min + Math.random() * (max - min);
+
     await addDoc(groupsCollection, {
       orders: items,
       createdDate: dataToFirestoreTimestamp(creationDate),
+      groupNumber: groupNumber,
     });
 
     // const groupsSnapshot = await getDocs(groupsCollection);

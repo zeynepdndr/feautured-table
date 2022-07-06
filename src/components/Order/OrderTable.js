@@ -96,6 +96,7 @@
 // export default OrderTable;
 
 import React, { useState, useEffect, useRef } from "react";
+import { Column } from "primereact/column";
 import { Toast } from "primereact/toast";
 import OrderService from "../../services/OrderService";
 import Button from "../UI/Button";
@@ -241,8 +242,41 @@ const OrderTable = () => {
         onFilter={onFilter}
         filters={lazyParams.filters}
         loading={loading}
-        selectionMode="multiple"
-      ></Table>
+      >
+        <Column
+          expander
+          selectionMode="multiple"
+          headerStyle={{ width: "3em" }}
+        ></Column>
+        <Column
+          field="name"
+          header="ID"
+          sortable
+          filter
+          filterPlaceholder="Search by name"
+        />
+        <Column
+          field="country.name"
+          sortable
+          header="Code"
+          filterField="country.name"
+          filter
+          filterPlaceholder="Search by country"
+        />
+        <Column
+          field="company"
+          sortable
+          filter
+          header="Name"
+          filterPlaceholder="Search by company"
+        />
+        <Column
+          field="representative.name"
+          header="Date"
+          filter
+          filterPlaceholder="Search by representative"
+        />
+      </Table>
       {/* <DataTable
         value={orders}
         lazy

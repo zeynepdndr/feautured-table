@@ -22,14 +22,22 @@ const Group = () => {
   const [error, setError] = useState(false);
 
   const getGroups = async () => {
-    GroupService.getGroups()
+    GroupService.getAll()
       .then((item) => {
-        setGroups(item.customers);
+        setGroups(item);
       })
       .catch((err) => {
         setError(err);
         console.log(err);
       });
+    // GroupService.getGroups()
+    //   .then((item) => {
+    //     setGroups(item.customers);
+    //   })
+    //   .catch((err) => {
+    //     setError(err);
+    //     console.log(err);
+    //   });
   };
 
   useEffect(() => {
@@ -50,10 +58,14 @@ const Group = () => {
 
   useEffect(() => {
     isMounted.current = true;
-    GroupService.getGroups().then((data) => {
-      setGroups(data.customers);
-      setTotalRecords(data.customers.length);
+    GroupService.getAll().then((data) => {
+      setGroups(data);
+      setTotalRecords(data.length);
     });
+    // GroupService.getGroups().then((data) => {
+    //   setGroups(data.customers);
+    //   setTotalRecords(data.customers.length);
+    // });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rowExpansionTemplate = (data) => {
@@ -62,17 +74,17 @@ const Group = () => {
         className="orders-subtable"
         style={{ width: "600px", margin: "auto" }}
       >
-        <h5>Orders for {data.name}</h5>
+        <h5>Orders for group {data.groupNumber}</h5>
         <DataTable value={data.orders} responsiveLayout="scroll">
           <Column field="id" header="ID" sortable></Column>
-          <Column field="customer" header="Code" sortable></Column>
-          <Column field="date" header="Name" sortable></Column>
-          <Column field="amount" header="Date" sortable></Column>
+          <Column field="code" header="Code" sortable></Column>
+          <Column field="name" header="Name" sortable></Column>
+          <Column field="date" header="Date" sortable></Column>
         </DataTable>
       </div>
     );
   };
-
+  console.log("groups", groups);
   return (
     <TransparentBox>
       <Table
@@ -82,21 +94,12 @@ const Group = () => {
         responsiveLayout="scroll"
         rowExpansionTemplate={rowExpansionTemplate}
         dataKey="id"
-        expander
-      ></Table>
-      <DataTable
-        value={groups}
-        expandedRows={expandedRows}
-        onRowToggle={(e) => setExpandedRows(e.data)}
-        responsiveLayout="scroll"
-        rowExpansionTemplate={rowExpansionTemplate}
-        dataKey="id"
       >
         <Column expander style={{ width: "3em" }} />
-        <Column field="name" header="Group Number" sortable />
-        <Column field="price" header="Quantity" sortable />
-        <Column field="category" header="Creation Date" sortable />
-      </DataTable>
+        <Column field="groupNumber" header="Group Number" sortable />
+        <Column field="orders.length" header="Quantity" sortable />
+        <Column field="createdDate" header="Creation Date" sortable />
+      </Table>
     </TransparentBox>
   );
 };

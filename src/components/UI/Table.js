@@ -37,39 +37,7 @@ const Table = (props) => {
       onRowToggle={props.onRowToggle}
       rowExpansionTemplate={props.rowExpansionTemplate}
     >
-      <Column
-        expander={props.expander}
-        selectionMode={props.selectionMode}
-        headerStyle={{ width: "3em" }}
-      ></Column>
-      <Column
-        field="name"
-        header="ID"
-        sortable
-        filter
-        filterPlaceholder="Search by name"
-      />
-      <Column
-        field="country.name"
-        sortable
-        header="Code"
-        filterField="country.name"
-        filter
-        filterPlaceholder="Search by country"
-      />
-      <Column
-        field="company"
-        sortable
-        filter
-        header="Name"
-        filterPlaceholder="Search by company"
-      />
-      <Column
-        field="representative.name"
-        header="Date"
-        filter
-        filterPlaceholder="Search by representative"
-      />
+      {props.children}
     </DataTable>
   );
 };
