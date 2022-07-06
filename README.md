@@ -16,7 +16,9 @@ Write a solution in JavaScript, using React framework.
 
 [done] 4. The solution should be able to view the details for each group in a separate page: "group number", "quantity of records", "creation date".
 
+[not completely] (responsivity does not work properly (could not finish in time))
 The interface should be responsive and meet UX/UI standards.
+
 All necessary requests to retrieve data from the backend can be mocked.
 
 Optional:
