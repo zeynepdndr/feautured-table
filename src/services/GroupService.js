@@ -31,7 +31,7 @@ class GroupService {
     let creationDate = Date.now();
     const min = 1;
     const max = 100;
-    const groupNumber = min + Math.random() * (max - min);
+    const groupNumber = min + parseInt(Math.random() * (max - min));
 
     await addDoc(groupsCollection, {
       orders: items,
