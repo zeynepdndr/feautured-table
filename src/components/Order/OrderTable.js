@@ -277,64 +277,6 @@ const OrderTable = () => {
           filterPlaceholder="Search by representative"
         />
       </Table>
-      {/* <DataTable
-        value={orders}
-        lazy
-        filterDisplay="row"
-        responsiveLayout="scroll"
-        dataKey="id"
-        paginator
-        header={header}
-        first={lazyParams.first}
-        rows={10}
-        totalRecords={totalRecords}
-        onPage={onPage}
-        onSort={onSort}
-        sortField={lazyParams.sortField}
-        sortOrder={lazyParams.sortOrder}
-        onFilter={onFilter}
-        filters={lazyParams.filters}
-        loading={loading}
-        selection={selectedOrders}
-        onSelectionChange={onSelectionChange}
-        selectAll={selectAll}
-        onSelectAllChange={onSelectAllChange}
-      >
-        <Column
-          selectionMode="multiple"
-          headerStyle={{ width: "3em" }}
-        ></Column>
-        <Column
-          field="name"
-          header="Name"
-          sortable
-          filter
-          filterPlaceholder="Search by name"
-        />
-        <Column
-          field="country.name"
-          sortable
-          header="Country"
-          filterField="country.name"
-          body={countryBodyTemplate}
-          filter
-          filterPlaceholder="Search by country"
-        />
-        <Column
-          field="company"
-          sortable
-          filter
-          header="Company"
-          filterPlaceholder="Search by company"
-        />
-        <Column
-          field="representative.name"
-          header="Representative"
-          body={representativeBodyTemplate}
-          filter
-          filterPlaceholder="Search by representative"
-        />
-      </DataTable> */}
     </div>
   );
 };

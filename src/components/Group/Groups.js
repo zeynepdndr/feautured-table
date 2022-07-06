@@ -2,19 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import GroupService from "../../services/GroupService";
 import Table from "../UI/Table";
 import TransparentBox from "../UI/TransparentBox";
-// import styles from "./Group.module.css";
-
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
 import "primereact/resources/themes/saga-green/theme.css";
 import "primereact/resources/primereact.min.css";
-
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
-import Button from "../UI/Button";
 
 const Group = () => {
   const [groups, setGroups] = useState([]);
@@ -30,14 +26,6 @@ const Group = () => {
         setError(err);
         console.log(err);
       });
-    // GroupService.getGroups()
-    //   .then((item) => {
-    //     setGroups(item.customers);
-    //   })
-    //   .catch((err) => {
-    //     setError(err);
-    //     console.log(err);
-    //   });
   };
 
   useEffect(() => {
@@ -62,10 +50,6 @@ const Group = () => {
       setGroups(data);
       setTotalRecords(data.length);
     });
-    // GroupService.getGroups().then((data) => {
-    //   setGroups(data.customers);
-    //   setTotalRecords(data.customers.length);
-    // });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rowExpansionTemplate = (data) => {

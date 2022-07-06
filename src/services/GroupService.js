@@ -39,11 +39,6 @@ class GroupService {
       groupNumber: groupNumber,
     });
 
-    // const groupsSnapshot = await getDocs(groupsCollection);
-    // const groupsList = groupsSnapshot.docs.map((doc) => ({
-    //   ...doc.data(),
-    //   id: doc.id,
-    // }));
     console.log("Order added", items);
   };
 }
