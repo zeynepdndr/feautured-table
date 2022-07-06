@@ -1,6 +1,11 @@
 import { db } from "../firebase.config";
 import { collection, getDocs } from "firebase/firestore";
 
+// The following class is to manage orders data.
+// Orders data is retrieved from an existing API.
+// I used the retrieved customer data as my orders data HOWEVER I didnt renamed them
+// since it was very time consuming changing those fields at firestore side
+
 const ordersCollection = collection(db, "orders");
 
 class OrderService {
@@ -12,30 +17,6 @@ class OrderService {
     }));
     return ordersList;
   };
-
-  getCustomersSmall() {
-    return fetch("data/customers-small.json")
-      .then((res) => res.json())
-      .then((d) => d.data);
-  }
-
-  getCustomersMedium() {
-    return fetch("data/customers-medium.json")
-      .then((res) => res.json())
-      .then((d) => d.data);
-  }
-
-  getCustomersLarge() {
-    return fetch("data/customers-large.json")
-      .then((res) => res.json())
-      .then((d) => d.data);
-  }
-
-  getCustomersXLarge() {
-    return fetch("data/customers-xlarge.json")
-      .then((res) => res.json())
-      .then((d) => d.data);
-  }
 
   getCustomers(params) {
     const queryParams = params

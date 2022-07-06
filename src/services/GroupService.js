@@ -2,6 +2,8 @@ import { db } from "../firebase.config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { dataToFirestoreTimestamp } from "../utils/dateConverter";
 
+// The following class is to get groups from firestore and add new groups to firestore.
+
 const groupsCollection = collection(db, "groups");
 
 class GroupService {
@@ -13,19 +15,6 @@ class GroupService {
     }));
     return groupsList;
   };
-
-  getGroups(params) {
-    const queryParams = params
-      ? Object.keys(params)
-          .map(
-            (k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k])
-          )
-          .join("&")
-      : "";
-    return fetch(
-      "https://www.primefaces.org/data/customers?" + queryParams
-    ).then((res) => res.json());
-  }
 
   addGroup = async (items) => {
     let creationDate = Date.now();
