@@ -9,7 +9,7 @@ function App() {
       <Layout>
         <Routes>
           {/* <Route path="/" element={<App />} /> */}
-          <Route path="/order" element={<Orders />} />
+          <Route path="/" element={<Orders />} />
           <Route path="/group" element={<Group />} />
           {/* <Route path="*" element={<NoMatch />} /> */}
         </Routes>

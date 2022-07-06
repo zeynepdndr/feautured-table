@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { default as OrderService } from "../../services/OrderService";
 import OrderTable from "./OrderTable";
-import styles from "./Orders.module.css";
 import TransparentBox from "../UI/TransparentBox";
+
+// The following component is shown on Order Tab.
+// It shows a table for orders wrapping TransparentBox component when there is no error
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);

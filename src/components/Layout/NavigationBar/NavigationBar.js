@@ -14,7 +14,7 @@ const NavigationBar = (props) => {
         <nav>
           <ul>
             <li>
-              <Link to={"/order"}>Order</Link>
+              <Link to={"/"}>Order</Link>
             </li>
             <li>
               <Link to={"/group"}>Group</Link>
