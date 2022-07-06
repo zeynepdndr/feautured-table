@@ -96,36 +96,33 @@
 // export default OrderTable;
 
 import React, { useState, useEffect, useRef } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { Toast } from "primereact/toast";
-
-import "primereact/resources/themes/saga-green/theme.css";
-import "primereact/resources/primereact.min.css";
-
 import OrderService from "../../services/OrderService";
-import "./OrderTable.module.css";
-import "primeicons/primeicons.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";
 import Button from "../UI/Button";
+import Table from "../UI/Table";
+
+import "./OrderTable.module.css";
 
 const OrderTable = () => {
   const [loading, setLoading] = useState(false);
   const [groupSelectionError, setGroupSelectionError] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [customers, setCustomers] = useState(null);
+  const [orders, setOrders] = useState(null);
   const [selectAll, setSelectAll] = useState(false);
-  const [selectedCustomers, setSelectedCustomers] = useState(null);
-  const [selectedRepresentative, setSelectedRepresentative] = useState(null);
+  const [selectedOrders, setSelectedOrders] = useState(null);
   const toast = useRef(null);
   const [lazyParams, setLazyParams] = useState({
     first: 0,
-    rows: 10,
+    rows: 50,
     page: 1,
     sortField: null,
     sortOrder: null,
+    // filters: {
+    //   id: { value: "", matchMode: "contains" },
+    //   code: { value: "", matchMode: "contains" },
+    //   name: { value: "", matchMode: "contains" },
+    //   date: { value: "", matchMode: "contains" },
+    // },
     filters: {
       name: { value: "", matchMode: "contains" },
       "country.name": { value: "", matchMode: "contains" },
@@ -152,7 +149,7 @@ const OrderTable = () => {
       OrderService.getCustomers({ lazyEvent: JSON.stringify(lazyParams) }).then(
         (data) => {
           setTotalRecords(data.totalRecords);
-          setCustomers(data.customers);
+          setOrders(data.customers);
           setLoading(false);
         }
       );
@@ -174,7 +171,7 @@ const OrderTable = () => {
 
   const onSelectionChange = (event) => {
     const value = event.value;
-    setSelectedCustomers(value);
+    setSelectedOrders(value);
     setSelectAll(value.length === totalRecords);
   };
 
@@ -184,52 +181,16 @@ const OrderTable = () => {
     if (selectAll) {
       OrderService.getCustomers().then((data) => {
         setSelectAll(true);
-        setSelectedCustomers(data.customers);
+        setSelectedOrders(data.customers);
       });
     } else {
       setSelectAll(false);
-      setSelectedCustomers([]);
+      setSelectedOrders([]);
     }
   };
 
-  const representativeBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <img
-          alt={rowData.representative.name}
-          src={`images/avatar/${rowData.representative.image}`}
-          onError={(e) =>
-            (e.target.src =
-              "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-          }
-          width={32}
-          style={{ verticalAlign: "middle" }}
-        />
-        <span className="image-text">{rowData.representative.name}</span>
-      </React.Fragment>
-    );
-  };
-
-  const countryBodyTemplate = (rowData) => {
-    return (
-      <React.Fragment>
-        <img
-          alt="flag"
-          src="/images/flag/flag_placeholder.png"
-          onError={(e) =>
-            (e.target.src =
-              "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-          }
-          className={`flag flag-${rowData.country.code}`}
-          width={30}
-        />
-        <span className="image-text">{rowData.country.name}</span>
-      </React.Fragment>
-    );
-  };
-
   const groupSelectedOrders = () => {
-    if (!selectedCustomers || selectedCustomers.length === 0) {
+    if (!selectedOrders || selectedOrders.length === 0) {
       setGroupSelectionError(true);
     } else {
       setGroupSelectionError(false);
@@ -239,19 +200,18 @@ const OrderTable = () => {
         detail: "You can find it under Group",
         life: 3000,
       });
-      setSelectedCustomers(null);
+      setSelectedOrders(null);
     }
-    console.log(selectedCustomers);
   };
 
   const clearSelections = () => {
-    console.log(selectedCustomers);
-    setSelectedCustomers(null);
+    console.log(selectedOrders);
+    setSelectedOrders(null);
   };
 
   useEffect(() => {
     setGroupSelectionError(false);
-  }, [selectedCustomers]);
+  }, [selectedOrders]);
 
   const header = (
     <div className="table-header-container">
@@ -260,12 +220,29 @@ const OrderTable = () => {
       {groupSelectionError && <p>Please select at least 1 item</p>}
     </div>
   );
-
+  console.log(orders);
   return (
     <div>
       <Toast ref={toast} className="toast_msg" />
-      <DataTable
-        value={customers}
+      <Table
+        value={orders}
+        header={header}
+        totalRecords={totalRecords}
+        selection={selectedOrders}
+        onSelectionChange={onSelectionChange}
+        selectAll={selectAll}
+        onSelectAllChange={onSelectAllChange}
+        first={lazyParams.first}
+        onPage={onPage}
+        onSort={onSort}
+        sortField={lazyParams.sortField}
+        sortOrder={lazyParams.sortOrder}
+        onFilter={onFilter}
+        filters={lazyParams.filters}
+        loading={loading}
+      ></Table>
+      {/* <DataTable
+        value={orders}
         lazy
         filterDisplay="row"
         responsiveLayout="scroll"
@@ -282,7 +259,7 @@ const OrderTable = () => {
         onFilter={onFilter}
         filters={lazyParams.filters}
         loading={loading}
-        selection={selectedCustomers}
+        selection={selectedOrders}
         onSelectionChange={onSelectionChange}
         selectAll={selectAll}
         onSelectAllChange={onSelectAllChange}
@@ -321,7 +298,7 @@ const OrderTable = () => {
           filter
           filterPlaceholder="Search by representative"
         />
-      </DataTable>
+      </DataTable> */}
     </div>
   );
 };
